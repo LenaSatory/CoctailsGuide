@@ -12,7 +12,7 @@ namespace CoctailsGuideWebApplication
         }
 
         public int Id { get; set; }
-        [Required(ErrorMessage ="Поле не повинно бути порожнім")]
+        [Required(ErrorMessage ="Поле не повинно бути порожнім)")]
         [Display(Name = "Назва")]
         public string Name { get; set; }
         //[Range(0, , ErrorMessage = "kndv")]
