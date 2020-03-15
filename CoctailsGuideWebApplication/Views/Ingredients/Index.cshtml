@@ -1,0 +1,29 @@
+﻿@model IEnumerable<CoctailsGuideWebApplication.Ingredients>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Інгредієнти</h1>
+
+<p>
+    <a asp-action="Create">Додати новий інгредієнт</a>
+</p>
+<table class="table">
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem=> item.Name)</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Редагувати</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

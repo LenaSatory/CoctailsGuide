@@ -1,0 +1,58 @@
+﻿@model CoctailsGuideWebApplication.Coctails
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="Definitions">
+        <h1>@Html.DisplayFor(model => model.Name)</h1>
+        <hr />
+        <a asp-action="HeshStrDetails" asp-route-id="@Model.Id">@Html.DisplayFor(model => model.Strength.Name),</a>
+        <a asp-action="HeshTehDetails" asp-route-id="@Model.Id">@Html.DisplayFor(model => model.Technique.Name),</a>
+        <a asp-action="HeshGlassDetails" asp-route-id="@Model.Id">@Html.DisplayFor(model => model.Glass.Name)</a>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.YearofCreation)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.YearofCreation)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CountryofCreation)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CountryofCreation.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CreationHistory)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreationHistory)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Recipe)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Recipe)
+            </dd>
+        </dl>
+</div>
+<div class="listOfIngridients">
+    <h4>Список інгредієнтів</h4>
+    <table>
+        @foreach (var item in Model.Compounds)
+        {
+            <tr>
+                <td>@Html.DisplayFor(model => item.IngredientId)</td>
+                <td>@Html.DisplayFor(model => item.Ingredient.Name)</td>
+                <td>@Html.DisplayFor(model => item.Amount)</td>
+            </tr>
+        }
+    </table>
+    
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Редагувати</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
