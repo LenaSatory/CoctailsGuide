@@ -35,14 +35,15 @@ namespace CoctailsGuideWebApplication.Controllers
 
             return View(await coctailsByStrenghts.ToListAsync());
         }
-        public async Task<IActionResult> HashtagIndexTechniques(int? id, string? name, string? description)
+        public async Task<IActionResult> HashtagIndexTechniques(int? id, string? name)
         {
             if (id == null)
                 return RedirectToAction("Coctails", "Index");
             //find coctails for strenghts REWRITECOMENT!!!
             ViewBag.TechniqueId = id;
             ViewBag.TechniqueName = name;
-            ViewBag.TechniqueDescription = description;
+            ViewBag.TechniqueDescription = (_context.Coctails.Include(b => b.Technique.Description).Where(b => b.Technique.Id == id)).ToString();
+            //ViewBag.TechniqueDescription = _context.Coctails.Where(b => b.Technique.Id == id).Include(b => b.Technique.Description);//Include(b => b.Technique.Description);
             var coctailsByTechnique = _context.Coctails.Where(b => b.Technique.Id == id).Include(b => b.Technique);
 
             return View(await coctailsByTechnique.ToListAsync());
@@ -121,7 +122,7 @@ namespace CoctailsGuideWebApplication.Controllers
             {
                 return NotFound();
             }
-            return RedirectToAction("HashtagIndexTechniques", "Coctails", new { id = coctails.TechniqueId, name = coctails.Technique.Name, description = coctails.Technique.Description});
+            return RedirectToAction("HashtagIndexTechniques", "Coctails", new { id = coctails.TechniqueId, name = coctails.Technique.Name});
         }
         public async Task<IActionResult> HeshGlassDetails(int? id)
         {

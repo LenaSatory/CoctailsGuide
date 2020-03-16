@@ -4,8 +4,9 @@
     ViewData["Title"] = "IndexHashtag";
 }
 
-<h1>Коктейлі за способом приготування @ViewBag.TechniqueName</h1>
-<h6>@ViewBag.TechniqueDescription</h6>
+<h1>Коктейлі за способом приготування  </h1>
+<a asp-controller="Techniques" asp-action="Details" asp-route-id="@ViewBag.TechniquesId">@ViewBag.TechniqueName </a>
+
 
 <p>
     <a asp-action="Create" asp-route-id="@ViewBag.TechniquesId">Додати новий коктейль</a>
