@@ -5,10 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+
 using CoctailsGuideWebApplication;
+using CoctailsGuideWebApplication.Models;
+
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoctailsGuideWebApplication.Controllers
 {
+    [Authorize(Roles ="admin, user")]
     public class CoctailsController : Controller
     {
         private readonly DBCoctailsGuideContext _context;
@@ -69,15 +74,15 @@ namespace CoctailsGuideWebApplication.Controllers
                 return NotFound();
             }
             
-            var compund = _context.Compounds.Include(k => k.Ingredient).FirstOrDefault(p => p.Id == id);
+            //var compund = _context.Compounds.Include(k => k.Ingredient).FirstOrDefault(p => p.Id == id);
             var coctails = await _context.Coctails
                 .Include(c => c.CountryofCreation)
                 .Include(c => c.Glass)
                 .Include(c => c.Strength)
                 .Include(c => c.Technique)
                 .Include(c => c.Compounds)
+                .ThenInclude(i => i.Ingredient)
                 .FirstOrDefaultAsync(m => m.Id == id);
-           
             if (coctails == null)
             {
                 return NotFound();

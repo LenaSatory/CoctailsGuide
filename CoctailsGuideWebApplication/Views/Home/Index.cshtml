@@ -2,8 +2,14 @@
     ViewData["Title"] = "Home Page";
 }
 
+<div class="card text-white bg-primary mb-3" style="width: 20rem; height: 10rem">
+    <div class="card-body">
+        <h4 class="card-title">Welcome!!!</h4>
+    </div>
+</div>
+
 <div class="text-center">
-    <h1>Welcome</h1>
+
     <table class="charts">
         <tr>
             <td>
@@ -16,7 +22,31 @@
                 <div id="chart3"></div>
             </td>
         </tr>
-     </table>
+    </table>
+</div>
+
+<div class="jumbotron">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <p>Hello, @User.Identity.Name</p>
+        @if (User.IsInRole("admin"))
+        {
+            <p>
+                <a role="button" class="btn btn-dark" asp-controller="Home" asp-action="AdminPage">Administrator page</a>
+            </p>
+        }
+        
+        <form class="form-inline" method="post" asp-controller="Account" asp-action="Logout">
+            <button class="btn btn-dark" type="submit">Log Out</button>
+        </form>
+    }
+    else
+    {
+        <p class="lead">
+            <a role="button" class="btn btn-dark" asp-controller="Account" asp-action="Login">Login</a>
+            <a role="button" class="btn btn-dark" asp-controller="Account" asp-action="Register">Register</a>
+        </p>
+    }
 </div>
 
 @section scripts{
@@ -67,7 +97,8 @@
                 chart.draw(datas, options);
             })
         }
-        
+
     </script>
+
 }
 

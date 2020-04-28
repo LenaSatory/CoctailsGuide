@@ -4,15 +4,23 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="card text-white bg-primary mb-3" style="width: 20rem; height: 10rem;">
+    <div class="card-body">
+        <h4 class="card-title">Countries</h4>
+    </div>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+@if (User.IsInRole("admin"))
+{
+    <p>
+        <a role="button" class="btn btn-dark" asp-action="Create">Create new country</a>
+    </p>
+}
+
+<table class="table table-hover">
     <thead>
         <tr>
-            <th>
+            <th scope="row">
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th></th>
@@ -22,13 +30,14 @@
         @foreach (var item in Model)
         {
             <tr>
+                <th scope="row">
+                    <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
+                </th>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    <a role="button" class="btn btn-dark" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a role="button" class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }

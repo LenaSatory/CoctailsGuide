@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 
 using CoctailsGuideWebApplication.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace CoctailsGuideWebApplication
 {
@@ -30,6 +31,19 @@ namespace CoctailsGuideWebApplication
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<DBCoctailsGuideContext>(options => options.UseSqlServer(connection));
             services.AddControllersWithViews();
+
+            string connectionIdentity = Configuration.GetConnectionString("IdentityConnection");
+            services.AddDbContext<IdentityContext>(options => options.UseSqlServer(connectionIdentity));
+            services.AddControllersWithViews();
+            services.AddIdentity<User, IdentityRole>(opts => {
+                opts.Password.RequiredLength = 3;   // минимальная длина
+                opts.Password.RequireNonAlphanumeric = false;   // требуются ли не алфавитно-цифровые символы
+                opts.Password.RequireLowercase = false; // требуются ли символы в нижнем регистре
+                opts.Password.RequireUppercase = true; // требуются ли символы в верхнем регистре
+                opts.Password.RequireDigit = false; // требуются ли цифры
+            })
+.AddEntityFrameworkStores<IdentityContext>()
+.AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +64,8 @@ namespace CoctailsGuideWebApplication
 
             app.UseRouting();
 
+
+            app.UseAuthentication();//підключення аутентифікації
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

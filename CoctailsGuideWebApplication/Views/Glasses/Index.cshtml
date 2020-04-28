@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CoctailsGuideWebApplication.Coctails>
+﻿@model IEnumerable<CoctailsGuideWebApplication.Glass>
 
 @{
     ViewData["Title"] = "Index";
@@ -6,19 +6,26 @@
 
 <div class="card text-white bg-primary mb-3" style="width: 20rem; height: 10rem;">
     <div class="card-body">
-        <h4 class="card-title">Coctails</h4>
+        <h4 class="card-title">Glasses</h4>
     </div>
 </div>
 
 @if (User.IsInRole("admin"))
 {
-<p>
-    <a role="button" class="btn btn-dark" asp-action="Create">Create new coctail</a>
-</p>
+    <p>
+        <a role="button" class="btn btn-dark" asp-action="Create">Create new glass</a>
+    </p>
 }
 
 <table class="table table-hover">
-
+    <thead>
+        <tr>
+            <th scope="row">
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
     <tbody>
         @foreach (var item in Model)
         {
@@ -26,9 +33,6 @@
                 <th scope="row">
                     <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
                 </th>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreationHistory)
-                </td>
                 <td>
                     <a role="button" class="btn btn-dark" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                 </td>
@@ -39,4 +43,3 @@
         }
     </tbody>
 </table>
-
