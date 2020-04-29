@@ -1,24 +1,35 @@
 ﻿@model CoctailsGuideWebApplication.ViewModel.LoginViewModel
 
-<h2> Login into the Data Base of Coctails </h2>
+<div class="card text-white bg-primary mb-3" style="width: 20rem; height: 10rem">
+    <div class="card-body">
+        <h4 class="card-title">Login</h4>
+    </div>
+</div>
+
 <form method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
-    <div asp-validation-summary="ModelOnly"></div>
-    <div>
-        <label asp-for="Email"></label> <br />
-        <input asp-for="Email" />
-        <span asp-validation-for="Email"></span>
-    </div>
-    <div>
-        <label asp-for="Password"></label> <br />
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-    <div>
-        <label asp-for="RememberMe"></label> <br />
-        <input asp-for="RememberMe" />
-    </div>
-    <div>
-        <input type="submit" value="Login" />
-    </div>
+    <fieldset>
+        <div class="form-group">
+            <label asp-for="Email"></label> <br />
+            <div asp-validation-summary="ModelOnly"></div>
+            <input type="email" class="form-control" asp-for="Email" aria-describedby="emailHelp" placeholder="Enter email">
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Password"></label> <br />
+            <input type="password" class="form-control" asp-for="Password" placeholder="Password">
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="RememberMe"></label> <br />
+            <input class="form-check" type="checkbox" asp-for="RememberMe" />
+        </div>
+        <div class="form-group">
+            <input role="button" class="btn btn-dark" type="submit" value="Sign in" />
+        </div>
+</fieldset>
 </form>
+
+
+
+        
 

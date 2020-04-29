@@ -10,18 +10,17 @@ namespace CoctailsGuideWebApplication
         {
             var emailMessage = new MimeMessage();
 
-            emailMessage.From.Add(new MailboxAddress("Site administration", "login@gamil.com"));
+            emailMessage.From.Add(new MailboxAddress("Site administration", "b5798ca3c86649"));
             emailMessage.To.Add(new MailboxAddress("", email));
             emailMessage.Subject = subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
                 Text = message
             };
-
             using (var client = new SmtpClient())
             {
-                await client.ConnectAsync("smtp.gamil.com", 25, false);
-                await client.AuthenticateAsync("login@gamil.com", "password");
+                client.Connect("smtp.mailtrap.io", 2525, false);
+                client.Authenticate("b5798ca3c86649", "70e570439638fd");
                 await client.SendAsync(emailMessage);
 
                 await client.DisconnectAsync(true);

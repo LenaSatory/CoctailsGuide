@@ -1,13 +1,21 @@
 ﻿@model IEnumerable<CoctailsGuideWebApplication.Models.User>
 
-<h2>List of users</h2>
+<div class="card text-white bg-primary mb-3" style="width: 20rem; height: 10rem;">
+    <div class="card-body">
+        <h4 class="card-title">List of users</h4>
+        <p class="card-text">
+            There is an opportunity change access rights of users
+        </p>
+    </div>
+</div>
+
 <table class="table">
     @foreach (var user in Model)
     {
         <tr>
             <td>@user.Email</td>
             <td>
-                <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-userid="@user.Id">Access rights</a>
+                <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-userid="@user.Id">Access rights</a>
             </td>
         </tr>
     }

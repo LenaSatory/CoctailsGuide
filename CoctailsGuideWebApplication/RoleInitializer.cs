@@ -24,7 +24,7 @@ namespace CoctailsGuideWebApplication
             }
             if (await userManager.FindByNameAsync(adminEmail) == null)//or Email??
             {
-                User admin = new User { Email = adminEmail, UserName = adminEmail };
+                User admin = new User { Email = adminEmail, UserName = adminEmail, EmailConfirmed = true };
                 IdentityResult result = await userManager.CreateAsync(admin, password);
                 if (result.Succeeded)
                 {

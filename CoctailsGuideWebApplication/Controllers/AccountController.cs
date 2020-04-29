@@ -36,7 +36,7 @@ namespace CoctailsGuideWebApplication.Controllers
                 User user = new User { Email = model.Email, UserName = model.Email, Year = model.Year };
 
                 // добавляем пользователя
-                /*var result = await _userManager.CreateAsync(user, model.Password);
+                var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     // генерация токена для пользователя
@@ -58,7 +58,8 @@ namespace CoctailsGuideWebApplication.Controllers
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
-                }*/
+                }
+                /*//без проверки email
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -72,12 +73,12 @@ namespace CoctailsGuideWebApplication.Controllers
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
-                }
+                }*/
             }
             return View(model);
         }
-
-        /*[HttpGet]
+        //ConfirmEmail
+        [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string userId, string code)
         {
@@ -95,7 +96,7 @@ namespace CoctailsGuideWebApplication.Controllers
                 return RedirectToAction("Index", "Home");
             else
                 return View("Error");
-        }*/
+        }
 
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
@@ -109,7 +110,7 @@ namespace CoctailsGuideWebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                /*var user = await _userManager.FindByNameAsync(model.Email);
+                var user = await _userManager.FindByNameAsync(model.Email);
                 if (user != null)
                 {
                     // проверяем, подтвержден ли email
@@ -118,7 +119,7 @@ namespace CoctailsGuideWebApplication.Controllers
                         ModelState.AddModelError(string.Empty, "You have not verified your email");
                         return View(model);
                     }
-                }*/
+                }
 
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 if (result.Succeeded)

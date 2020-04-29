@@ -1,8 +1,15 @@
 ﻿@model CoctailsGuideWebApplication.ViewModel.EditUserViewModel
 
 @{
-    ViewBag.Title = "Редактирование пользователя";
+    ViewBag.Title = "User editing";
 }
+
+    <div class="card text-white bg-primary mb-3" style="width: 20rem; height: 10rem;">
+        <div class="card-body">
+            <h4 class="card-title">User editing</h4>
+        </div>
+    </div>
+
 <form asp-action="Edit" asp-controller="Users">
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
@@ -13,7 +20,7 @@
         <input type="text" asp-for="Email" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="Year" class="control-label">Год рождения</label>
+        <label asp-for="Year" class="control-label">Birth year</label>
         <input type="number" asp-for="Year" class="form-control" />
     </div>
     <div class="form-group">
